@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Research Analysis Agent</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="main-container">
+        <button id="historyButton" class="history-button">History</button>
+        <div id="history" class="history-container" style="display: none;">
+            <h2>Analysis History</h2>
+            <div id="topicList"></div>
+            <div id="interactionList"></div>
+        </div>
+        <div class="container">
+            <div class="header">
+                <h1>Research Analysis Agent</h1>
+                <p>Analyze research papers and extract key insights.</p>
+            </div>
+
+            <div class="input-section">
+                <label for="researchTopic">Research Topic:</label>
+                <input type="text" id="researchTopic" placeholder="Enter research topic">
+
+                <label for="researchPaper" class="custom-file-upload">
+                    <input type="file" id="researchPaper" accept=".pdf">
+                    <span class="file-upload-text">Upload Research Paper</span>
+                </label>
+                <div id="fileUploadStatus" style="display: none; color: green; margin-top: 10px;"></div>
+            </div>
+
+            <button id="analyze">Analyze Paper</button>
+            <div id="result" class="result-container"></div>
+            <div class="button-container">
+                <button id="save" style="display:none;">Save as Text</button>
+                <button id="copy" style="display:none;">Copy Text</button>
+                <button id="clear">Clear</button>
+            </div>
+            <div id="loading" class="loading-dots" style="display: none;">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
