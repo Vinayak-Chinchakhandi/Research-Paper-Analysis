@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+env/
+
+# Environment variables
+.env
+
+# Node (future frontend)
+node_modules/
+
+# Data (optional - you can keep or ignore)
+data/uploads/
+data/faiss_index/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
