@@ -5,6 +5,8 @@ import uuid
 
 from app.services.pdf_processor import extract_text_from_pdf
 from app.services.chunking import chunk_text
+from app.services.embedding_service import get_embeddings
+from app.services.vector_store import store_embeddings
 
 router = APIRouter()
 
@@ -45,6 +47,12 @@ async def upload_papers(
 
         # Chunking
         chunks = chunk_text(text)
+
+        # Generate embeddings
+        embeddings = get_embeddings(chunks)
+
+        # Store in FAISS
+        store_embeddings(embeddings, chunks)
 
         results.append({
             "filename": file.filename,
