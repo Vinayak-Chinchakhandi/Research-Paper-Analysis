@@ -46,16 +46,17 @@ async def upload_papers(
             continue
 
         # Chunking
-        chunks = chunk_text(text)
+        chunks = [c.strip() for c in chunk_text(text) if len(c.strip()) > 50]
 
         # Generate embeddings
         embeddings = get_embeddings(chunks)
 
         # Store in FAISS
-        store_embeddings(embeddings, chunks)
+        store_embeddings(embeddings, chunks, unique_name)
 
         results.append({
-            "filename": file.filename,
+            "original_name": file.filename,
+            "stored_name": unique_name,
             "num_chunks": len(chunks),
             "preview": chunks[0][:300] if chunks else "No content"
         })

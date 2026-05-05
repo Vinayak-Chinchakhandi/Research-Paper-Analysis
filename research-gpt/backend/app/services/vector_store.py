@@ -1,28 +1,80 @@
 import faiss
 import numpy as np
+import os
+import json
 
-# Create FAISS index
-dimension = 384  # for MiniLM model
-index = faiss.IndexFlatL2(dimension)
+INDEX_PATH = "data/faiss_index/index.faiss"
+META_PATH = "data/faiss_index/metadata.json"
 
-# Store mapping
+# Global objects
+index = None
 documents = []
 
 
-def store_embeddings(embeddings, chunks):
-    global documents
+# ✅ Initialize or load index
+def init_index(dimension):
+    global index, documents
 
-    embeddings = np.array(embeddings).astype("float32")
+    os.makedirs("data/faiss_index", exist_ok=True)
 
-    index.add(embeddings)
-    documents.extend(chunks)
+    if os.path.exists(INDEX_PATH) and os.path.exists(META_PATH):
+        try:
+            index = faiss.read_index(INDEX_PATH)
+
+            if index.d != dimension:
+                print("⚠️ Dimension mismatch. Rebuilding index...")
+                index = faiss.IndexFlatL2(dimension)
+                documents = []
+                return
+
+            with open(META_PATH, "r", encoding="utf-8") as f:
+                documents = json.load(f)
+
+        except Exception:
+            print("⚠️ Corrupt index. Rebuilding...")
+            index = faiss.IndexFlatL2(dimension)
+            documents = []
+    else:
+        index = faiss.IndexFlatL2(dimension)
+        documents = []
 
 
-def search(query_embedding, top_k=5):
-    import numpy as np
+# ✅ Save index + metadata
+def save_index():
+    global index, documents
 
-    if len(documents) == 0:
-        return ["No documents available. Please upload papers first."]
+    faiss.write_index(index, INDEX_PATH)
+
+    with open(META_PATH, "w", encoding="utf-8") as f:
+        json.dump(documents, f, ensure_ascii=False, indent=2)
+
+
+# ✅ Store embeddings
+def store_embeddings(embeddings, chunks, source):
+    global index, documents
+
+    embeddings_array = np.array(embeddings).astype("float32")
+
+    # Add to FAISS
+    index.add(embeddings_array)
+
+    # Store metadata WITH embedding
+    for i, chunk in enumerate(chunks):
+        documents.append({
+            "text": chunk,
+            "source": source,
+            "embedding": embeddings[i].tolist()   # 🔥 IMPORTANT
+        })
+
+    save_index()
+
+
+# ✅ Search (multi-doc aware)
+def search(query_embedding, top_k=40):
+    global index, documents
+
+    if index is None or len(documents) == 0:
+        return []
 
     query_embedding = np.array([query_embedding]).astype("float32")
 
@@ -30,10 +82,18 @@ def search(query_embedding, top_k=5):
 
     results = []
 
-    for i in indices[0]:
-        if i == -1:
+    for dist, i in zip(distances[0], indices[0]):
+        if i == -1 or i >= len(documents):
             continue
-        if 0 <= i < len(documents):
-            results.append(documents[i])
+
+        doc = documents[i]
+
+        results.append({
+            "text": doc["text"],
+            "source": doc["source"],
+            "embedding": doc["embedding"],   # 🔥 ADD THIS
+            "score": float(dist)
+        })
 
     return results
+    

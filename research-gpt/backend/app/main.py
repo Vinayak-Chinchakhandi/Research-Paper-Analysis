@@ -3,6 +3,10 @@ from fastapi.middleware.cors import CORSMiddleware
 
 # Import routes
 from app.api.routes import upload, chat, analysis
+from app.services.vector_store import init_index
+from app.services.embedding_service import EMBEDDING_DIM
+
+init_index(EMBEDDING_DIM)
 
 app = FastAPI(title="ResearchGPT API")
 
