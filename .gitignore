@@ -1,0 +1,57 @@
+# ===============================
+# 🐍 Python
+# ===============================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# ===============================
+# 🔐 Environment variables
+# ===============================
+.env
+
+# ===============================
+# 📦 Node / Frontend (future)
+# ===============================
+node_modules/
+dist/
+build/
+
+# ===============================
+# 📂 Data (IMPORTANT)
+# ===============================
+# Backend data folders
+research-gpt/backend/data/uploads/
+research-gpt/backend/data/faiss_index/
+
+# Keep folder structure (optional)
+!research-gpt/backend/data/uploads/.gitkeep
+!research-gpt/backend/data/faiss_index/.gitkeep
+
+# ===============================
+# 🖥️ OS files
+# ===============================
+.DS_Store
+Thumbs.db
+
+# ===============================
+# 📜 Logs
+# ===============================
+*.log
+
+# ===============================
+# 🧪 VS Code / IDE
+# ===============================
+.vscode/
+.idea/
+
+# ===============================
+# 🐳 Docker (optional)
+# ===============================
+*.env.local
