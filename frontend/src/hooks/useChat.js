@@ -1,5 +1,8 @@
 import { useContext } from "react";
+
 import { ProjectContext } from "../context/ProjectContext";
+
+import { askQuestion } from "../services/ragService";
 
 export default function useChat() {
 
@@ -20,25 +23,51 @@ export default function useChat() {
       message: text,
     };
 
-    setMessages((prev) => [...prev, userMessage]);
+    setMessages((prev) => [
+      ...prev,
+      userMessage,
+    ]);
 
     setIsThinking(true);
 
-    // Fake AI Delay
-    setTimeout(() => {
+    try {
+
+      const response = await askQuestion(text);
 
       const aiMessage = {
         id: crypto.randomUUID(),
         type: "ai",
-        message:
-          "AI-generated response will appear here after backend integration.",
+        message: response.answer,
+        sources: response.sources || [],
       };
 
-      setMessages((prev) => [...prev, aiMessage]);
+      setMessages((prev) => [
+        ...prev,
+        aiMessage,
+      ]);
+
+    } catch (error) {
+
+      console.error(error);
+
+      const errorMessage = {
+        id: crypto.randomUUID(),
+        type: "ai",
+        message:
+          "Error generating AI response.",
+        sources: [],
+      };
+
+      setMessages((prev) => [
+        ...prev,
+        errorMessage,
+      ]);
+
+    } finally {
 
       setIsThinking(false);
 
-    }, 2000);
+    }
   };
 
   return {
