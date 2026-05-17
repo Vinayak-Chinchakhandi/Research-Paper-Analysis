@@ -1,12 +1,17 @@
 import { useDropzone } from "react-dropzone";
+
 import useUpload from "../../hooks/useUpload";
 
 function UploadDropzone() {
 
-  const { addFiles } = useUpload();
+  const {
+    addFiles,
+    isUploading,
+    uploadStatus,
+  } = useUpload();
 
-  const onDrop = (acceptedFiles) => {
-    addFiles(acceptedFiles);
+  const onDrop = async (acceptedFiles) => {
+    await addFiles(acceptedFiles);
   };
 
   const {
@@ -52,6 +57,12 @@ function UploadDropzone() {
           : "Drag & drop PDFs here or click to browse"}
 
       </p>
+
+      {isUploading && (
+        <div className="mt-4 text-blue-400 text-sm">
+          {uploadStatus}
+        </div>
+      )}
 
     </div>
   );
