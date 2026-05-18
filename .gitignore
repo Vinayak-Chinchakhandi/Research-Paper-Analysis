@@ -11,6 +11,9 @@ venv/
 env/
 .venv/
 
+# Vite cache
+frontend/.vite/
+
 # ===============================
 # 🔐 Environment variables
 # ===============================
