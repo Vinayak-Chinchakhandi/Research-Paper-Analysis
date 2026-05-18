@@ -1,14 +1,32 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+
 import App from "./App";
+
 import "./index.css";
 
-import { ProjectProvider } from "./context/ProjectContext";
+import {
+  ProjectProvider,
+} from "./context/ProjectContext";
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+import {
+  AuthProvider,
+} from "./context/AuthContext";
+
+ReactDOM.createRoot(
+  document.getElementById("root")
+).render(
   <React.StrictMode>
-    <ProjectProvider>
-      <App />
-    </ProjectProvider>
+
+    <AuthProvider>
+
+      <ProjectProvider>
+
+        <App />
+
+      </ProjectProvider>
+
+    </AuthProvider>
+
   </React.StrictMode>
 );
