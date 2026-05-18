@@ -14,6 +14,9 @@ env/
 # Vite cache
 frontend/.vite/
 
+# Backend runtime data
+backend/data/
+
 # ===============================
 # 🔐 Environment variables
 # ===============================
