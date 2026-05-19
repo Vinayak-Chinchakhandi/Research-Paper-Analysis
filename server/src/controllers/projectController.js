@@ -7,10 +7,11 @@ export const createProject =
     try {
 
       const {
-        user_id,
         title,
         description,
       } = req.body;
+
+      const user_id = req.user.id;
 
       const result =
         await pool.query(
@@ -48,8 +49,8 @@ export const getProjects =
 
     try {
 
-      const { user_id } = req.query;
-
+      const user_id = req.user.id;
+      
       const result =
         await pool.query(
           `
@@ -70,6 +71,54 @@ export const getProjects =
       res.status(500).json({
         message:
           "Fetching projects failed",
+      });
+    }
+  };
+
+  
+export const getProjectById =
+  async (req, res) => {
+
+    try {
+
+      const projectId =
+        req.params.id;
+
+      const user_id =
+        req.user.id;
+
+      const result =
+        await pool.query(
+          `
+          SELECT *
+          FROM projects
+          WHERE id = $1
+          AND user_id = $2
+          `,
+          [projectId, user_id]
+        );
+
+      if (
+        result.rows.length === 0
+      ) {
+
+        return res.status(404).json({
+          message:
+            "Project not found",
+        });
+      }
+
+      res.json(
+        result.rows[0]
+      );
+
+    } catch (error) {
+
+      console.error(error);
+
+      res.status(500).json({
+        message:
+          "Server error",
       });
     }
   };

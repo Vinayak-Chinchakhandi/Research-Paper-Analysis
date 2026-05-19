@@ -46,7 +46,7 @@ function Login() {
 
         login(data);
 
-        navigate("/workspace");
+        navigate("/dashboard");
 
       } else {
 

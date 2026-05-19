@@ -3,25 +3,42 @@ import Navbar from "../components/layout/Navbar";
 import UploadDropzone from "../components/upload/UploadDropzone";
 import ChatWindow from "../components/chat/ChatWindow";
 import ChatInput from "../components/chat/ChatInput";
+import { fetchProjectById } from "../services/projectService";
 
-import { useContext } from "react";
+import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
+import { useEffect, useState } from "react";
 
 function ProjectView() {
   const navigate = useNavigate();
 
-  const {
-    user,
-    logout,
-  } = useContext(AuthContext);
+  const [project, setProject] = useState(null);
 
-  const handleLogout = () => {
+  const { projectId } = useParams();
 
-    logout();
+  useEffect(() => {
 
-    navigate("/login");
-  };
+    loadProject();
+
+  }, []);
+
+  const loadProject =
+    async () => {
+
+      try {
+
+        const data =
+          await fetchProjectById(
+            projectId
+          );
+
+        setProject(data);
+
+      } catch (error) {
+
+        console.error(error);
+      }
+    };
 
   return (
     <div className="flex h-screen bg-[#0B1120] text-white overflow-hidden">
@@ -34,52 +51,56 @@ function ProjectView() {
       {/* Main Workspace */}
       <div className="flex flex-col flex-1 w-full">
 
-        {/* User Header */}
-        <div className="
-          flex
-          items-center
-          justify-between
-          px-4 py-3
-          border-b
-          border-gray-800
-          bg-[#111827]
-        ">
+        {/* Navbar */}
+        <Navbar />
 
+        <div className="
+  flex
+  items-start
+  justify-between
+  px-4
+  py-4
+  border-b
+  border-gray-800
+  bg-[#111827]
+">
+
+          {/* Left Section */}
           <div>
 
-            <h2 className="
-              text-lg
-              font-semibold
-            ">
-              Welcome, {user?.name}
-            </h2>
+            <h1 className="
+      text-2xl
+      font-bold
+    ">
+              {project?.title || "Loading..."}
+            </h1>
 
             <p className="
-              text-sm
-              text-gray-400
-            ">
-              {user?.email}
+      text-sm
+      text-gray-400
+      mt-1
+    ">
+              {project?.description}
             </p>
 
           </div>
 
+          {/* Right Section */}
           <button
-            onClick={handleLogout}
+            onClick={() =>
+              navigate("/dashboard")
+            }
             className="
-              bg-red-600
-              hover:bg-red-700
-              px-4 py-2
-              rounded-xl
-              transition
-            "
+      text-sm
+      text-gray-400
+      hover:text-white
+      transition-colors
+    "
           >
-            Logout
+            ← Back to Dashboard
           </button>
 
         </div>
-
-        {/* Navbar */}
-        <Navbar />
 
         {/* Upload Area */}
         <div className="p-3 md:p-4 border-b border-gray-800">
