@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ProjectView from "./pages/ProjectView";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
 
@@ -33,7 +34,16 @@ function App() {
         />
 
         <Route
-          path="/workspace"
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/workspace/:projectId"
           element={
             <ProtectedRoute>
               <ProjectView />

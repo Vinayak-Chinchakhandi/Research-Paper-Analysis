@@ -5,14 +5,22 @@ const API_URL =
 export const createProject =
   async (projectData) => {
 
+    const token =
+      localStorage.getItem("token");
+
     const response = await fetch(
       API_URL,
       {
         method: "POST",
+
         headers: {
           "Content-Type":
             "application/json",
+
+          Authorization:
+            `Bearer ${token}`,
         },
+
         body: JSON.stringify(
           projectData
         ),
@@ -24,11 +32,42 @@ export const createProject =
 
 /* GET PROJECTS */
 export const fetchProjects =
-  async (userId) => {
+  async () => {
+
+    const token =
+      localStorage.getItem("token");
 
     const response = await fetch(
-      `${API_URL}?user_id=${userId}`
+      API_URL,
+      {
+        headers: {
+          Authorization:
+            `Bearer ${token}`,
+        },
+      }
     );
+
+    return response.json();
+};
+
+export const fetchProjectById =
+  async (projectId) => {
+
+    const token =
+      localStorage.getItem(
+        "token"
+      );
+
+    const response =
+      await fetch(
+        `${API_URL}/${projectId}`,
+        {
+          headers: {
+            Authorization:
+              `Bearer ${token}`,
+          },
+        }
+      );
 
     return response.json();
 };
