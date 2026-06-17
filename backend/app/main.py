@@ -3,14 +3,10 @@ from fastapi.middleware.cors import CORSMiddleware
 
 # Import routes
 from app.api.routes import upload, chat, analysis
-from app.services.vector_store import init_index
-from app.services.embedding_service import EMBEDDING_DIM
-
-init_index(EMBEDDING_DIM)
 
 app = FastAPI(title="ResearchGPT API")
 
-# Enable CORS (for frontend later)
+# Enable CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -20,10 +16,27 @@ app.add_middleware(
 )
 
 # Register routes
-app.include_router(upload.router, prefix="/upload", tags=["Upload"])
-app.include_router(chat.router, prefix="/chat", tags=["Chat"])
-app.include_router(analysis.router, prefix="/analysis", tags=["Analysis"])
+app.include_router(
+    upload.router,
+    prefix="/upload",
+    tags=["Upload"]
+)
+
+app.include_router(
+    chat.router,
+    prefix="/chat",
+    tags=["Chat"]
+)
+
+app.include_router(
+    analysis.router,
+    prefix="/analysis",
+    tags=["Analysis"]
+)
+
 
 @app.get("/")
 def root():
-    return {"message": "ResearchGPT API is running 🚀"}
+    return {
+        "message": "ResearchGPT API is running 🚀"
+    }

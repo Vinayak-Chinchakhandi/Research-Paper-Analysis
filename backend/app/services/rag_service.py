@@ -1,7 +1,6 @@
 import os
 from dotenv import load_dotenv
 import google.generativeai as genai
-import numpy as np
 from app.services.embedding_service import get_embeddings
 from app.services.vector_store import search
 
@@ -10,9 +9,6 @@ load_dotenv()
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
 model = genai.GenerativeModel("gemini-flash-lite-latest")
-
-def cosine_sim(a, b): 
-    return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))
 
 
 def filter_top_sources(reranked_chunks, top_n_sources=2):
@@ -31,8 +27,8 @@ def filter_top_sources(reranked_chunks, top_n_sources=2):
 
 
 # ✅ Select best chunks (balanced + deduplicated)
-def select_best_chunks(results, query, max_chunks=8, force_multi=False):
-    query_embedding = get_embeddings([query])[0]
+def select_best_chunks(results, max_chunks=8, force_multi=False):
+    
 
     source_chunks = {}
     source_scores = {}
@@ -40,9 +36,8 @@ def select_best_chunks(results, query, max_chunks=8, force_multi=False):
     # Step 1: group + score
     for item in results:
         src = item["source"]
-        chunk_embedding = np.array(item["embedding"])
-
-        sim = cosine_sim(query_embedding, chunk_embedding)
+        
+        similarity = -item["score"]
 
         if src not in source_chunks:
             source_chunks[src] = []
@@ -51,10 +46,11 @@ def select_best_chunks(results, query, max_chunks=8, force_multi=False):
         source_chunks[src].append({
             "text": item["text"],
             "source": src,
-            "score": sim
+            "document_id": item["document_id"],
+            "score": similarity
         })
 
-        source_scores[src] += sim  # 🔥 TOTAL relevance
+        source_scores[src] += similarity  # 🔥 TOTAL relevance
 
     # Step 2: sort sources by total score
     sorted_sources = sorted(source_scores.items(), key=lambda x: x[1], reverse=True)
@@ -76,16 +72,13 @@ def select_best_chunks(results, query, max_chunks=8, force_multi=False):
         if force_multi:
             top_sources = [s[0] for s in sorted_sources[:2]]
         else:
-            if len(sorted_sources) == 1:
+            top_score = sorted_sources[0][1]
+            second_score = sorted_sources[1][1]
+
+            if top_score > 1.3 * second_score:
                 top_sources = [sorted_sources[0][0]]
             else:
-                top_score = sorted_sources[0][1]
-                second_score = sorted_sources[1][1]
-
-                if top_score > 1.3 * second_score:
-                    top_sources = [sorted_sources[0][0]]
-                else:
-                    top_sources = [s[0] for s in sorted_sources[:2]]
+                top_sources = [s[0] for s in sorted_sources[:2]]
 
     # Step 3: collect chunks from selected sources
     selected = []
@@ -116,7 +109,7 @@ def build_context(selected_chunks):
 
 
 # ✅ Main RAG pipeline
-def generate_answer(query: str):
+def generate_answer(user_id, project_id, query):
 
     # 🔥 Step 1: Enhance query (generic, scalable)
     enhanced_query = f"""
@@ -127,7 +120,7 @@ def generate_answer(query: str):
     query_embedding = get_embeddings([enhanced_query])[0]
 
     # 🔥 Step 2: Retrieve chunks (FLAT results expected)
-    results = search(query_embedding, top_k=40)
+    results = search(user_id, project_id, query_embedding, top_k=40)
 
     # ❌ No documents
     if not results:
@@ -142,7 +135,7 @@ def generate_answer(query: str):
     ])
 
     # 🔥 Step 3: Select best chunks
-    selected_chunks = select_best_chunks(results, query, force_multi=is_comparison)
+    selected_chunks = select_best_chunks(results, force_multi=is_comparison)
 
     # ❌ No useful chunks
     if not selected_chunks:
@@ -197,8 +190,30 @@ ANSWER:
     except Exception as e:
         answer = f"Error generating response: {str(e)}"
 
+    unique_sources = []
+
+    seen = set()
+
+    for chunk in selected_chunks:
+
+        doc_id = chunk["document_id"]
+
+        if doc_id not in seen:
+
+            seen.add(doc_id)
+
+            unique_sources.append({
+
+            "document_id":
+                chunk["document_id"],
+
+            "source":
+                chunk["source"]
+
+        })
+
     # 🔥 Step 7: Return clean output
     return {
         "answer": answer,
-        "sources": list(set([c["source"] for c in selected_chunks]))
+        "sources": unique_sources
     }

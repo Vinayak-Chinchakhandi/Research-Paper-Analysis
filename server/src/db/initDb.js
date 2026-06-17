@@ -38,18 +38,47 @@ const initDB = async () => {
       );
     `);
 
-    /* CHAT HISTORY */
+    /* CHAT SESSIONS */
     await pool.query(`
-      CREATE TABLE IF NOT EXISTS chat_history (
+      CREATE TABLE IF NOT EXISTS chat_sessions (
         id SERIAL PRIMARY KEY,
         project_id INTEGER REFERENCES projects(id) ON DELETE CASCADE,
-        user_query TEXT,
-        ai_response TEXT,
+        title VARCHAR(255),
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `);
 
-    console.log("Database tables initialized");
+    /* CHAT MESSAGES */
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS chat_messages (
+        id SERIAL PRIMARY KEY,
+        session_id INTEGER REFERENCES chat_sessions(id) ON DELETE CASCADE,
+        role VARCHAR(20) NOT NULL,
+        content TEXT NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+    `);
+
+    /* DOCUMENT TABLE MIGRATIONS */
+
+    await pool.query(`
+      ALTER TABLE documents
+      ADD COLUMN IF NOT EXISTS file_path TEXT;
+    `);
+
+    await pool.query(`
+      ALTER TABLE documents
+      ADD COLUMN IF NOT EXISTS document_id TEXT;
+    `);
+
+    await pool.query(`
+      ALTER TABLE chat_messages
+      ADD COLUMN IF NOT EXISTS sources JSONB;
+    `);
+
+    console.log(
+      "Database tables initialized"
+    );
 
   } catch (error) {
 

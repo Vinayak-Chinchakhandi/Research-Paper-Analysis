@@ -1,26 +1,35 @@
 import { useContext } from "react";
-
+import { useParams } from "react-router-dom";
 import { ProjectContext } from "../context/ProjectContext";
 
 import { askQuestion } from "../services/ragService";
 
 export default function useChat() {
 
+  const { projectId } = useParams();
+
   const {
     messages,
     setMessages,
     isThinking,
     setIsThinking,
+    activeSession,
   } = useContext(ProjectContext);
 
   const sendMessage = async (text) => {
 
     if (!text.trim()) return;
 
+    if (!activeSession) {
+      alert("Create a chat first");
+      return;
+    }
+
     const userMessage = {
       id: crypto.randomUUID(),
-      type: "user",
-      message: text,
+      role: "user",
+      content: text,
+      sources: [],
     };
 
     setMessages((prev) => [
@@ -32,12 +41,17 @@ export default function useChat() {
 
     try {
 
-      const response = await askQuestion(text);
+      const response =
+        await askQuestion(
+          activeSession.id,
+          projectId,
+          text
+        );
 
       const aiMessage = {
         id: crypto.randomUUID(),
-        type: "ai",
-        message: response.answer,
+        role: "assistant",
+        content: response.answer,
         sources: response.sources || [],
       };
 
@@ -52,9 +66,8 @@ export default function useChat() {
 
       const errorMessage = {
         id: crypto.randomUUID(),
-        type: "ai",
-        message:
-          "Error generating AI response.",
+        role: "assistant",
+        content: "Error generating AI response.",
         sources: [],
       };
 

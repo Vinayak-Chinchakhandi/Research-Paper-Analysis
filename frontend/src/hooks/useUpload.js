@@ -4,7 +4,11 @@ import { ProjectContext } from "../context/ProjectContext";
 
 import { uploadPDFs } from "../services/ragService";
 
+import { useParams } from "react-router-dom";
+
 export default function useUpload() {
+
+  const { projectId } = useParams();
 
   const {
     uploadedFiles,
@@ -23,17 +27,24 @@ export default function useUpload() {
 
       setUploadStatus("Uploading PDFs...");
 
-      const response = await uploadPDFs(files);
-
+      const response =
+        await uploadPDFs(
+          projectId,
+          files
+        );
+        
       setUploadStatus("Generating embeddings...");
 
-      const formattedFiles = response.papers.map((paper) => ({
-        id: crypto.randomUUID(),
-        name: paper.original_name,
-        storedName: paper.stored_name,
-        chunks: paper.num_chunks,
-        preview: paper.preview,
-      }));
+      const formattedFiles =
+        response.documents.map(
+          (doc) => ({
+            id: doc.document_id,
+            name: doc.original_name,
+            storedName: doc.stored_name,
+            filePath: doc.file_path,
+            chunks: doc.chunk_count,
+          })
+        );
 
       setUploadedFiles((prev) => [
         ...prev,
