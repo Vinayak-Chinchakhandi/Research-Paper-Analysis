@@ -4,10 +4,14 @@ import UploadDropzone from "../components/upload/UploadDropzone";
 import ChatWindow from "../components/chat/ChatWindow";
 import ChatInput from "../components/chat/ChatInput";
 import { fetchProjectById } from "../services/projectService";
+import { fetchProjectDocuments } from "../services/documentService";
+import { fetchSessions, fetchMessages, } from "../services/chatService";
 
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useContext } from "react";
+import { ProjectContext } from "../context/ProjectContext";
 
 function ProjectView() {
   const navigate = useNavigate();
@@ -16,11 +20,22 @@ function ProjectView() {
 
   const { projectId } = useParams();
 
+  const {
+    setUploadedFiles,
+    setSessions,
+    setActiveSession,
+    setMessages,
+  } = useContext(ProjectContext);
+
   useEffect(() => {
 
     loadProject();
 
-  }, []);
+    loadDocuments();
+
+    loadSessions();
+
+  }, [projectId]);
 
   const loadProject =
     async () => {
@@ -37,6 +52,91 @@ function ProjectView() {
       } catch (error) {
 
         console.error(error);
+      }
+    };
+
+  const loadDocuments =
+    async () => {
+
+      try {
+
+        const documents =
+          await fetchProjectDocuments(
+            projectId
+          );
+
+        const formattedDocuments =
+          documents.map((doc) => ({
+
+            id: doc.document_id,
+
+            name: doc.original_name,
+
+            storedName:
+              doc.stored_name,
+
+            filePath:
+              doc.file_path,
+
+            chunks:
+              doc.num_chunks,
+
+          }));
+
+        setUploadedFiles(
+          formattedDocuments
+        );
+
+      } catch (error) {
+
+        console.error(error);
+      }
+    };
+
+  const loadSessions =
+    async () => {
+
+      try {
+
+        const data =
+          await fetchSessions(
+            projectId
+          );
+
+        setSessions(data);
+
+        if (data.length > 0) {
+
+          setActiveSession(
+            data[0]
+          );
+
+          const messages =
+            await fetchMessages(
+              data[0].id
+            );
+
+          setMessages(
+
+            messages.map((msg) => ({
+
+              ...msg,
+
+              sources:
+
+                typeof msg.sources === "string"
+                  ? JSON.parse(msg.sources)
+                  : (msg.sources || [])
+
+            }))
+
+          );
+        }
+
+      } catch (error) {
+
+        console.error(error);
+
       }
     };
 

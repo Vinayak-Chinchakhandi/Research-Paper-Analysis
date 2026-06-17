@@ -25,8 +25,8 @@ function ChatWindow() {
 
         <MessageBubble
           key={msg.id}
-          type={msg.type}
-          message={msg.message}
+          type={msg.role}
+          message={msg.content}
           sources={msg.sources}
         />
 

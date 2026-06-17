@@ -1,35 +1,60 @@
 import API from "./api";
 
 /* Upload PDFs */
-export const uploadPDFs = async (files) => {
+export const uploadPDFs =
+  async (
+    project_id,
+    files
+  ) => {
 
-  const formData = new FormData();
+    const formData =
+      new FormData();
 
-  files.forEach((file) => {
-    formData.append("files", file);
-  });
+    formData.append(
+      "project_id",
+      project_id
+    );
 
-  const response = await API.post(
-    "/upload",
-    formData,
-    {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    }
-  );
+    files.forEach((file) => {
 
-  return response.data;
-};
+      formData.append(
+        "files",
+        file
+      );
+    });
+
+    const response =
+      await API.post(
+        "/ai/upload",
+        formData,
+        {
+          headers: {
+            "Content-Type":
+              "multipart/form-data",
+          },
+        }
+      );
+
+    return response.data;
+  };
 
 /* Ask AI Question */
-export const askQuestion = async (question) => {
+export const askQuestion =
+  async (
+    session_id,
+    project_id,
+    query
+  ) => {
 
-  const response = await API.get("/chat", {
-    params: {
-      query: question,
-    },
-  });
+    const response =
+      await API.post(
+        "/ai/chat",
+        {
+          session_id,
+          project_id,
+          query,
+        }
+      );
 
-  return response.data;
-};
+    return response.data;
+  };

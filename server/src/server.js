@@ -6,6 +6,9 @@ import testDB from "./config/testDb.js";
 import initDB from "./db/initDb.js";
 import authRoutes from "./routes/authRoutes.js";
 import projectRoutes from "./routes/projectRoutes.js";
+import aiRoutes from "./routes/aiRoutes.js";
+import documentRoutes from "./routes/documentRoutes.js";
+import chatRoutes from "./routes/chatRoutes.js";
 
 dotenv.config();
 
@@ -18,6 +21,12 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 
 app.use("/api/projects", projectRoutes);
+
+app.use("/api/ai", aiRoutes);
+
+app.use("/api/documents", documentRoutes);
+
+app.use("/api/chat", chatRoutes);
 
 testDB();
 

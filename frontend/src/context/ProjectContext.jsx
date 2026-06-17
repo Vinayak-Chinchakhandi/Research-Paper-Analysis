@@ -6,9 +6,14 @@ export function ProjectProvider({ children }) {
 
   const [uploadedFiles, setUploadedFiles] = useState([]);
 
+  const [sessions, setSessions] = useState([]);
+
+  const [activeSession, setActiveSession] = useState(null);
+
   const [messages, setMessages] = useState([]);
 
   const [isThinking, setIsThinking] = useState(false);
+
 
   return (
     <ProjectContext.Provider
@@ -19,6 +24,10 @@ export function ProjectProvider({ children }) {
         setMessages,
         isThinking,
         setIsThinking,
+        sessions,
+        setSessions,
+        activeSession,
+        setActiveSession,
       }}
     >
       {children}
