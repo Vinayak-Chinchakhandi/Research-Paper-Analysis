@@ -1,380 +1,501 @@
 # ResearchGPT 🚀
-### AI-Powered Multi-Document Research Analysis & Literature Review Platform
 
-ResearchGPT is an advanced AI-powered research assistant platform designed to help users analyze, understand, compare, and interact with multiple research papers using modern Retrieval-Augmented Generation (RAG) architecture.
+## AI-Powered Multi-Document Research Analysis & Literature Review Platform
 
-The platform enables users to upload research papers, perform semantic search, generate AI-powered insights, compare methodologies, identify research gaps, and interact conversationally with documents through a modern AI workspace interface.
+ResearchGPT is a full-stack AI-powered research intelligence platform designed to help researchers, students, and professionals analyze, compare, and interact with large collections of research papers through Retrieval-Augmented Generation (RAG).
 
-Unlike traditional PDF chatbots, ResearchGPT is built as a scalable multi-document intelligence system capable of contextual reasoning across large collections of academic papers.
+Unlike traditional PDF chatbots that rely solely on conversation history, ResearchGPT combines semantic retrieval, project-isolated vector databases, persistent research workspaces, source attribution, and multi-session research chats to deliver accurate, grounded, and scalable research assistance.
+
+The platform enables users to upload research papers, organize them into projects, perform semantic search, compare studies, generate literature reviews, identify research gaps, and conduct long-term research conversations with persistent context.
 
 ---
 
 # 🎯 Project Objective
 
-The primary goal of ResearchGPT is to simplify and accelerate the research analysis process by combining:
+ResearchGPT was built to address one of the biggest challenges in academic and technical research:
 
-- Semantic document retrieval
-- Vector search
-- Large Language Model reasoning
-- Multi-document contextual analysis
-- Literature review generation
-- AI-powered research understanding
+> Understanding, comparing, and extracting insights from large collections of research papers efficiently.
 
-The platform reduces the need for manually reading and comparing hundreds of pages of research content by enabling intelligent AI-assisted interaction with papers.
+The platform combines modern AI technologies with scalable system architecture to provide:
+
+* Semantic document retrieval
+* Multi-document contextual understanding
+* AI-powered literature review generation
+* Comparative research analysis
+* Persistent research workspaces
+* Grounded conversational AI
+* Source-aware responses
+
+Instead of manually reading hundreds of pages, users can interact with their research corpus through an intelligent AI assistant.
 
 ---
 
 # ✨ Core Features
 
-## 📄 Multi-PDF Research Workspace
+## 📁 Multi-Project Research Workspace
 
-The platform supports uploading multiple research papers simultaneously into a unified research workspace.
+ResearchGPT organizes research into isolated project workspaces.
 
-Features include:
-- Multi-file PDF upload
-- Automatic text extraction
-- Intelligent document parsing
-- Semantic indexing
-- Unified document understanding
+Each project maintains:
 
-Users can work with entire collections of papers rather than interacting with documents individually.
+* Uploaded PDFs
+* Project-specific vector databases
+* Research chat sessions
+* Message history
+* Citation history
+
+This enables users to manage multiple research domains independently without cross-project contamination.
 
 ---
 
-# 🤖 AI Chat with Research Papers
+## 📄 Multi-PDF Upload & Processing
 
-ResearchGPT provides a conversational AI interface where users can ask natural language questions directly against uploaded papers.
+The platform supports uploading multiple research papers into a unified workspace.
 
-The system:
-- Understands contextual queries
-- Retrieves relevant document sections
-- Performs grounded reasoning
-- Generates AI-powered responses
-- Supports cross-document understanding
+Features:
 
-Example queries:
+* Multi-file PDF upload
+* Automatic text extraction
+* Intelligent chunking
+* Metadata management
+* Semantic indexing
+* Project-level document isolation
+
+Uploaded papers are automatically processed and converted into searchable vector representations.
+
+---
+
+## 💬 Persistent Research Chats
+
+ResearchGPT supports multiple chat sessions inside a single research workspace.
+
+Features:
+
+* Create multiple research conversations
+* Persistent chat history
+* Session-based organization
+* Reload previous conversations
+* Long-term research workflows
+
+Unlike conventional LLM chats, conversations remain useful because answers are generated from retrieved research evidence rather than relying solely on conversation memory.
+
+---
+
+## 🧠 AI-Powered Research Assistant
+
+Users can ask natural language questions about uploaded papers.
+
+Example Queries:
+
 ```text
 Compare the methodologies used in these papers
 ```
 
 ```text
-Summarize findings related to environmental impact
+What are the key findings related to climate change?
 ```
 
 ```text
-What research gaps exist across these studies?
+Identify research gaps across all uploaded studies
 ```
 
-The responses are generated using retrieved contextual information rather than generic LLM hallucinations.
+```text
+Summarize the limitations discussed in these papers
+```
+
+The system retrieves relevant research evidence before generating responses.
 
 ---
 
-# 🧠 Semantic Search & Retrieval System
+## 🔍 Semantic Search & Retrieval
 
-At the core of ResearchGPT is a semantic retrieval engine powered by vector embeddings and FAISS vector search.
+ResearchGPT uses vector embeddings and semantic similarity search instead of traditional keyword matching.
 
-The system:
-- Converts document chunks into embeddings
-- Stores embeddings inside vector indexes
-- Retrieves semantically relevant content
-- Performs similarity-based search
-- Enables contextual multi-document querying
+Capabilities:
 
-This allows the platform to understand meaning and context rather than relying only on keyword matching.
+* Meaning-based search
+* Context-aware retrieval
+* Cross-document understanding
+* Semantic chunk matching
+* Research-focused question answering
 
----
-
-# 📊 Multi-Document Research Analysis
-
-ResearchGPT is designed for comparative research analysis.
-
-The system can:
-- Compare multiple research papers
-- Identify similarities and differences
-- Analyze methodologies
-- Detect trends and patterns
-- Generate contextual insights
-- Identify overlapping concepts
-
-This transforms the platform from a simple chatbot into a complete AI-assisted research analysis environment.
+This allows users to discover relevant information even when exact keywords are absent.
 
 ---
 
-# 🧾 Literature Review Generation
+## 📊 Multi-Document Comparative Analysis
 
-The platform includes AI-powered literature review capabilities.
+The platform is designed to compare multiple research papers simultaneously.
 
-Using contextual retrieval and grounded reasoning, ResearchGPT can:
-- Summarize multiple papers
-- Generate structured literature insights
-- Extract key findings
-- Organize research understanding
-- Assist in academic review workflows
+ResearchGPT can:
 
-The generated responses are structured and context-aware.
+* Compare methodologies
+* Analyze similarities and differences
+* Detect trends across studies
+* Generate comparative insights
+* Evaluate findings across papers
 
----
-
-# 🔍 Research Gap Identification
-
-ResearchGPT analyzes uploaded papers collectively to identify:
-- Missing research areas
-- Unexplored concepts
-- Future research directions
-- Weaknesses in existing studies
-- Opportunities for further investigation
-
-This feature helps users discover meaningful research opportunities more efficiently.
+This transforms the system from a simple chatbot into a research analysis engine.
 
 ---
 
-# 🎨 Modern AI Workspace
+## 🧾 Literature Review Generation
 
-The frontend is designed as a professional AI SaaS-style workspace rather than a traditional academic project interface.
+ResearchGPT assists researchers in literature review workflows by:
 
-The workspace includes:
-- Interactive upload panels
-- Conversational AI chat window
-- Research navigation sidebar
-- Source-aware response display
-- Responsive layouts
-- Modern UI/UX experience
-- Markdown-rendered AI outputs
+* Summarizing multiple papers
+* Extracting key findings
+* Organizing research themes
+* Highlighting major contributions
+* Generating structured reviews
 
-The design focuses on creating an immersive AI-assisted research environment.
+All outputs are grounded in retrieved research evidence.
+
+---
+
+## 🔬 Research Gap Identification
+
+The platform can identify:
+
+* Unexplored topics
+* Missing research directions
+* Potential future work
+* Weaknesses in existing studies
+* Areas requiring further investigation
+
+This helps researchers discover new opportunities efficiently.
+
+---
+
+## 📚 Source Attribution & Citation Tracking
+
+Every AI response includes document-level source attribution.
+
+Features:
+
+* Source-aware responses
+* Citation persistence
+* Document tracking
+* Multi-document evidence support
+
+Users can always determine which paper contributed to a generated answer.
 
 ---
 
 # 🏗️ System Architecture
 
-ResearchGPT follows a modular AI system architecture.
+ResearchGPT follows a distributed full-stack architecture.
 
 ```text
-Frontend Workspace
-        ↓
-FastAPI Backend
-        ↓
-RAG Processing Pipeline
-        ↓
+React Frontend
+       │
+       ▼
+Node.js + Express API Gateway
+       │
+       ▼
+PostgreSQL Database
+       │
+       ▼
+FastAPI AI Service
+       │
+       ▼
+PDF Processing
+       │
+       ▼
+Chunking Pipeline
+       │
+       ▼
 Embedding Generation
-        ↓
+       │
+       ▼
 FAISS Vector Database
-        ↓
-LLM Grounded Reasoning
+       │
+       ▼
+Semantic Retrieval
+       │
+       ▼
+Gemini LLM
+       │
+       ▼
+Grounded AI Response
 ```
 
-The architecture is designed for:
-- scalability
-- modularity
-- semantic retrieval
-- efficient AI processing
-- multi-document contextual analysis
+---
+
+# 🏛️ Project Isolation Architecture
+
+A key design goal of ResearchGPT is complete project-level isolation.
+
+Each project maintains its own:
+
+* Uploaded documents
+* FAISS index
+* Metadata store
+* Chat sessions
+* Message history
+
+Directory Structure:
+
+```text
+data/
+└── users/
+    └── {user_id}
+        └── projects/
+            └── {project_id}
+                ├── uploads/
+                │   └── PDF files
+                │
+                └── faiss/
+                    ├── index.faiss
+                    ├── metadata.json
+                    └── documents.json
+```
+
+This ensures retrieval remains isolated and accurate for every project.
 
 ---
 
-# ⚙️ Technology Stack
+# 🧬 Retrieval-Augmented Generation (RAG) Pipeline
 
-## Frontend Technologies
-- React.js
-- Vite
-- Tailwind CSS
-- Axios
-- Framer Motion
-- React Markdown
-
----
-
-## Backend Technologies
-- FastAPI
-- Python
-- Uvicorn
-
----
-
-## AI & RAG Technologies
-- Sentence Transformers
-- FAISS Vector Database
-- Gemini LLM
-- LangChain-based architecture
-
----
-
-## PDF Processing Technologies
-- pdfplumber
-- PyPDF2
-
----
-
-# 🧬 Core AI Pipeline
-
-ResearchGPT uses a complete Retrieval-Augmented Generation workflow.
-
-The process includes:
+ResearchGPT uses a custom RAG pipeline.
 
 ```text
 PDF Upload
     ↓
 Text Extraction
     ↓
-Document Chunking
+Chunk Generation
     ↓
-Embedding Generation
+Embedding Creation
     ↓
-Vector Indexing
+FAISS Indexing
     ↓
 Semantic Retrieval
     ↓
-Context Reranking
+Source Aggregation
     ↓
-LLM Grounded Generation
+Context Construction
     ↓
-AI Response Generation
+Gemini Grounded Generation
+    ↓
+Source Attribution
 ```
+
+The platform retrieves relevant evidence before generating responses, reducing hallucinations and improving answer reliability.
 
 ---
 
-# 📁 Project Structure
+# 🔎 Current Retrieval Strategy
+
+The retrieval system follows these stages:
+
+### 1. Query Enhancement
+
+User queries are enriched to improve retrieval quality.
+
+### 2. Embedding Generation
+
+Queries are converted into dense vector representations using Sentence Transformers.
+
+### 3. Semantic Retrieval
+
+Relevant chunks are retrieved from project-specific FAISS indexes.
+
+### 4. Source-Based Aggregation
+
+Retrieved chunks are grouped by source document.
+
+### 5. Multi-Document Selection
+
+Relevant chunks from one or more papers are selected based on semantic relevance.
+
+### 6. Context Construction
+
+An optimized context window is built from selected chunks.
+
+### 7. Grounded Response Generation
+
+Gemini generates responses using retrieved evidence only.
+
+### 8. Citation Generation
+
+Source metadata is attached to responses for transparency and traceability.
+
+---
+
+# 🗄️ Database Design
+
+ResearchGPT uses PostgreSQL for metadata persistence.
+
+Core Tables:
+
+### Users
 
 ```text
-research-gpt/
-│
-├── frontend/
-│   ├── components/
-│   ├── pages/
-│   ├── hooks/
-│   ├── services/
-│   ├── context/
-│   └── utils/
-│
-├── backend/
-│   ├── api/
-│   ├── services/
-│   ├── models/
-│   ├── database/
-│   ├── vector_store/
-│   └── core/
-│
-├── data/
-│   ├── uploads/
-│   └── faiss_index/
-│
-└── README.md
+users
 ```
 
-The project follows a modular full-stack architecture separating:
-- frontend UI
-- backend APIs
-- AI services
-- retrieval systems
-- vector storage
-- research processing pipelines
+Stores user accounts and authentication information.
+
+### Projects
+
+```text
+projects
+```
+
+Stores research workspaces.
+
+### Documents
+
+```text
+documents
+```
+
+Stores uploaded document metadata.
+
+### Chat Sessions
+
+```text
+chat_sessions
+```
+
+Stores research conversations within a project.
+
+### Chat Messages
+
+```text
+chat_messages
+```
+
+Stores user messages, AI responses, and source citations.
 
 ---
 
-# 🧠 Retrieval-Augmented Generation (RAG)
+# ⚙️ Technology Stack
 
-The platform uses RAG architecture to generate grounded and context-aware responses.
+## Frontend
 
-Instead of sending entire PDFs directly to the language model, the system:
-1. Retrieves only the most relevant chunks
-2. Builds optimized contextual prompts
-3. Generates responses based on retrieved evidence
-4. Maintains source awareness
-
-This improves:
-- accuracy
-- contextual understanding
-- response grounding
-- token efficiency
-- multi-document reasoning
+* React.js
+* Vite
+* Tailwind CSS
+* Axios
+* React Markdown
+* Context API
 
 ---
 
-# 📦 Vector Database & Embedding System
+## Backend
 
-ResearchGPT uses vector embeddings for semantic understanding.
-
-The workflow includes:
-- converting text chunks into embeddings
-- storing embeddings inside FAISS indexes
-- performing similarity search
-- retrieving semantically relevant content
-
-This enables intelligent research retrieval and contextual AI reasoning across multiple papers.
+* Node.js
+* Express.js
+* PostgreSQL
+* JWT Authentication
+* Multer
 
 ---
 
-# 💡 AI Capabilities
+## AI Service
 
-The platform supports multiple research-oriented AI tasks.
-
-## Supported Capabilities
-- Semantic question answering
-- Multi-document comparison
-- Contextual summarization
-- Literature understanding
-- Research insight generation
-- Trend analysis
-- Research gap detection
-- Grounded conversational AI
+* FastAPI
+* Python
+* Uvicorn
 
 ---
 
-# 🌟 Key Highlights
+## AI & RAG
 
-## 🚀 Full-Stack AI SaaS Architecture
-Designed as a scalable AI-powered research intelligence platform.
-
----
-
-## 🧠 Multi-Document Semantic Understanding
-Understands contextual relationships across multiple papers.
+* Sentence Transformers
+* FAISS Vector Database
+* Google Gemini
+* Semantic Retrieval Pipeline
 
 ---
 
-## 📊 Intelligent Research Analysis
-Generates contextual insights instead of simple document summaries.
+## Document Processing
+
+* pdfplumber
+* PyPDF2
 
 ---
 
-## 🔍 Grounded AI Responses
-Uses retrieved evidence to reduce hallucinations and improve answer reliability.
+# 🚀 Key Engineering Highlights
+
+## Multi-Tenant Architecture
+
+User and project-level isolation ensures secure and scalable document retrieval.
 
 ---
 
-## 🎨 Professional AI Workspace
-Modern AI-driven user experience inspired by SaaS research platforms.
+## Persistent Research Workspaces
+
+Projects, chats, messages, and citations remain available across sessions.
 
 ---
 
-## ⚡ Scalable Modular Design
-Backend and frontend designed for extensibility and future AI enhancements.
+## Project-Specific Vector Databases
+
+Each project maintains its own FAISS index to eliminate retrieval contamination.
+
+---
+
+## Grounded AI Responses
+
+Responses are generated using retrieved evidence rather than relying solely on LLM memory.
+
+---
+
+## Source Attribution
+
+Every response can be traced back to contributing research papers.
+
+---
+
+## Modular AI Architecture
+
+Frontend, API gateway, AI services, retrieval systems, and storage layers are fully decoupled.
 
 ---
 
 # 🎯 Use Cases
 
 ResearchGPT can be used for:
-- Academic research assistance
-- Literature review workflows
-- Comparative research analysis
-- AI-assisted paper understanding
-- Research exploration
-- Semantic document analysis
-- Technical knowledge extraction
-- Educational research environments
+
+* Academic Research
+* Literature Review Generation
+* Research Gap Analysis
+* Comparative Study Analysis
+* Technical Paper Understanding
+* Knowledge Discovery
+* Scientific Research Assistance
+* Educational Research Platforms
 
 ---
 
-# 🚀 Final Vision
+# 🔮 Future Enhancements
 
-ResearchGPT is designed to transform traditional research workflows into an intelligent AI-powered experience where users can:
+Planned improvements include:
 
-- interact conversationally with research papers
-- analyze multiple studies simultaneously
-- generate contextual insights
-- accelerate literature review processes
-- discover research opportunities
-- perform semantic research analysis at scale
+* Cross-Encoder Re-ranking
+* Hybrid Search (FAISS + BM25)
+* Query Classification
+* Citation Preview Panels
+* Document Deletion & Reindexing
+* Chat Auto-Naming
+* Research Export Tools
+* Cloud Deployment
+* Team Collaboration Workspaces
 
-The platform combines modern AI engineering, semantic retrieval systems, vector databases, and grounded language model reasoning to create a complete AI research intelligence ecosystem.
+---
+
+# 🌟 Final Vision
+
+ResearchGPT aims to become an intelligent research intelligence platform that enables users to:
+
+* Organize research efficiently
+* Understand papers faster
+* Compare studies intelligently
+* Generate grounded insights
+* Identify research opportunities
+* Conduct long-term AI-assisted research
+
+By combining semantic retrieval, project-isolated vector databases, persistent o an AI-powered research experience.workspaces, and grounded LLM reasoning, ResearchGPT transforms traditional research workflows int
